@@ -13,11 +13,25 @@ Thư viện THCS Hoàng Tiến
             <div class="col">
                 <div class="card card-body">
                     <form method="get">
-                        {{table_filter.form}}
+                        {{table_filter.form|bootstrap}}
                         <button class="btn btn-primary" type="submit">Tìm kiếm</button>
                     </form>
                 </div>
             </div>
+
+<!--            <div class="form-check form-check-inline">-->
+<!--                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">-->
+<!--                 <label class="form-check-label" for="inlineCheckbox1">Sách giáo khoa</label>-->
+<!--            </div>-->
+<!--            <div class="form-check form-check-inline">-->
+<!--                 <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">-->
+<!--                 <label class="form-check-label" for="inlineCheckbox2">Sách đạo đức</label>-->
+<!--            </div>-->
+<!--            <form method="post">-->
+<!--                {% csrf_token %}-->
+<!--                {{table_filter}}-->
+<!--                <button class="btn btn-primary" type="submit">Tìm kiếm</button>-->
+<!--            </form>-->
 
             <table class="table table-striped">
                 <thead>
