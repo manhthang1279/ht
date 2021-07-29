@@ -1,0 +1,144 @@
+{% extends 'library/base_library.html' %}
+{% load static %}
+{% block title %}
+Thư viện THCS Hoàng Tiến
+{% endblock %}
+
+{% block container %}
+    <div class="container">
+        <h5>DANH MỤC SÁCH VÀ ẤN PHẨM</h5>
+
+        <div class="row">
+
+            <div class="col">
+                <div class="card card-body">
+                    <form method="get">
+                        {{table_filter.form}}
+                        <button class="btn btn-primary" type="submit">Tìm kiếm</button>
+                    </form>
+                </div>
+            </div>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">STT</th>
+                        <th scope="col">Số cá biệt</th>
+                        <th scope="col">Tên ấn phẩm</th>
+                        <th scope="col">Tác giả</th>
+                        <th scope="col">Tình trạng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for book in context %}
+                        <tr>
+                            <th scope="col">{{ forloop.counter0|add:context.start_index }}</th>
+                            <td>{{ book.isbn }}</td>
+                            <td>{{ book.title }}</td>
+                            <td>{{ book.author }}</td>
+                            <td>{{ book.status }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+
+            <!--Pagination-->
+
+            {% if context.has_other_pages %}
+              <ul class="pagination">
+                {% if context.has_previous %}
+                  <li><a href="?page={{ context.previous_page_number }}">&laquo;</a></li>
+                {% else %}
+                  <li class="disabled"><span>&laquo;</span></li>
+                {% endif %}
+                {% for i in context.paginator.page_range %}
+                  {% if context.number == i %}
+                    <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                  {% else %}
+                    <li><a href="?page={{ i }}">{{ i }}</a></li>
+                  {% endif %}
+                {% endfor %}
+                {% if context.has_next %}
+                  <li><a href="?page={{ context.next_page_number }}">&raquo;</a></li>
+                {% else %}
+                  <li class="disabled"><span>&raquo;</span></li>
+                {% endif %}
+              </ul>
+            {% endif %}
+
+
+
+
+
+<!--            <nav aria-label="Page navigation example">-->
+<!--                <ul class="pagination justify-content-end">-->
+<!--                    {% if page_obj.has_previous %}-->
+<!--                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>-->
+<!--                    {% else %}-->
+<!--                        <li class="disabled page-item"><span class="page-link">&laquo;</span></li>-->
+<!--                    {% endif %}-->
+<!--                    {% for i in page_range|default_if_none:page_obj.paginator.get_elided_page_range %}-->
+<!--                        {% if page_obj.number == i %}-->
+<!--                            <li class="active page-item"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span>-->
+<!--                            </li>-->
+<!--                        {% else %}-->
+<!--                            {% if i == page_obj.paginator.ELLIPSIS %}-->
+<!--                                <li class="page-item"><span class="page-link">{{ i }}</span></li>-->
+<!--                            {% else %}-->
+<!--                                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>-->
+<!--                            {% endif %}-->
+<!--                        {% endif %}-->
+<!--                    {% endfor %}-->
+<!--                    {% if page_obj.has_next %}-->
+<!--                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>-->
+<!--                    {% else %}-->
+<!--                        <li class="disabled page-item"><span class="page-link">&raquo;</span></li>-->
+<!--                    {% endif %}-->
+
+
+
+
+<!--                    {% if context.has_previous %}-->
+<!--                    <li class="page-item">-->
+<!--                        <a class="page-link" href="?page={{ context.previous_page_number }}">«</a>-->
+<!--                    </li>-->
+<!--                    {% else %}-->
+<!--                    <li class="page-item disabled">-->
+<!--                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">«</a>-->
+<!--                    </li>-->
+<!--                    {% endif %}-->
+
+<!--                    {% if context.number|add:'-2' > 1 %}-->
+<!--                    <li class="page-item"><a class="page-link" href="?page={{ context.number|add:'-3' }}">&hellip;</a></li>-->
+<!--                    {% endif %}-->
+
+<!--                    {% for i in context.paginator.page_range %}-->
+<!--                    {% if context.number == i %}-->
+<!--                    <li class="page-item active" aria-current="page">-->
+<!--                        <span class="page-link">{{ i }}</span>-->
+<!--                    </li>-->
+<!--                    {% elif i > context.number|add:'-3' and i < context.number|add:'3' %}-->
+<!--                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>-->
+<!--                    {% endif %}-->
+<!--                    {% endfor %}-->
+
+<!--                    {% if context.paginator.num_pages > context.number|add:'2' %}-->
+<!--                    <li class="page-item"><a class="page-link" href="?page={{ context.number|add:'3' }}">&hellip;</a></li>-->
+<!--                    {% endif %}-->
+
+<!--                    {% if context.has_next %}-->
+<!--                    <li class="page-item">-->
+<!--                        <a class="page-link" href="?page={{ context.next_page_number }}">»</a>-->
+<!--                    </li>-->
+<!--                    {% else %}-->
+<!--                    <li class="page-item disabled">-->
+<!--                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">»</a>-->
+<!--                    </li>-->
+<!--                    {% endif %}-->
+<!--                </ul>-->
+<!--            </nav>-->
+            <!--end of Pagination-->
+        </div>
+    </div>
+{% endblock %}
